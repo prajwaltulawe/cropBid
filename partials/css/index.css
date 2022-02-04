@@ -1,0 +1,144 @@
+.homepage{
+    background: var(--secondary) ;
+    width: 100%;
+    padding: 0 2.5%;
+    margin: auto;
+}
+
+.navbar{
+    height: 10%;
+    width: 100%;
+    float: none;
+
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1% 0;
+}
+
+.menuitems{
+    height: 100%;
+    width: 40%;
+    margin: 0;
+    align-items: center;
+    padding: 1% 0 0 0;
+    font-weight: 400;
+}
+
+.logo{
+    height: 100%;
+    width: 20%;
+    margin: 0 0 0 2%;
+}
+
+.logo img{
+    height: 80%;
+    width: auto;
+}
+
+.logo span{
+    font-size: 2rem;
+    margin: 0 0 0 2%;
+}
+
+.profile{
+    height: 100%;
+    display: flex;
+    margin: 0 auto;
+}
+
+.image{
+    width: 30%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: transparent;
+    margin: 3% 5%;
+}
+
+.profile-img{
+    width: auto;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    background: transparent;
+    border-radius: 2rem;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+}
+
+.profile-img img{
+    width: 100%;
+    height: 100%;
+    border-radius: 2rem;
+}
+
+#file{
+    margin: 5% 0;
+    border: none;
+}
+
+.profile-info{
+    height: 100%;
+    width: 60%;
+    margin: 0;
+}
+
+.profile-info form{
+    width: 90%;
+    height: 80%;
+    margin: 0 auto 0 5%;
+    
+}
+
+.profile-info form th{
+    width: 30%;
+    text-align: left;
+    font-weight: initial;
+    padding: 2%;
+}
+
+.profile-info form td{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    text-align: left;
+    padding: 2%;
+}
+
+.profile-info span, input, button, select, option, textarea, file{
+    margin:  1% 0;
+}
+
+#city{ width: 25%;}
+#state{ width: 45%;}
+#zip{ width: 20%;}
+#currentPassword{ width: 60%;}
+#description{ width: 100%;}
+
+.profile-info button{
+    padding: 2%;
+    color: var(--secondary);
+    cursor: pointer;
+    margin: 0 0 0 2%;
+}
+
+#edit{
+    width: 20%;
+    margin: 0;
+    background-color: var(--tertiary);
+}
+
+hr{
+    opacity: 0.1;
+    margin: 2% 0 0 0;
+}
+
+#currentPassword{
+    width: 45%;
+}
+
+#save{
+    width: 45%;
+    background-color: var(--tertiary);
+}

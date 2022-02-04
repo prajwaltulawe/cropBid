@@ -1,0 +1,10 @@
+.home{
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+    margin: 7% 0 0 19%;
+}
+
+.home span{
+    font-size: 5rem;
+}
