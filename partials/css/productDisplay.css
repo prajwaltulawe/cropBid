@@ -1,6 +1,6 @@
 .filter-options{
-    width: 95%;
-    margin: 2% auto;
+    width: 98%;
+    margin: 0 auto;
 }
 
 .filters-wrapper{
@@ -27,7 +27,7 @@
 .filter-wrapper{
     display: inherit;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     font-family: var(--roboto);
     font-size: 1rem;
     margin: auto;
@@ -42,24 +42,31 @@
     padding: 1%;
 }
 
-#filter-area {  width: 37%;}
-#filter-state, #filter-cities{  width: 32%; padding: 1%;}
+#filter-area {  width: 36%;}
+#filter-area span{  width: 33%; text-align: right;}
+#filter-state{  width: 30%;margin: 0; padding: 2% 1%;}
+#filter-cities{ width: 26%;margin: 0; padding: 2% 1%;}
 
-#filter-date{   width: 34%;}
-#pf{   width: 23%; text-align: center;}
-#t{ width: 7%; text-align: center;}
-#filter-date input {    width: 36%; margin: 0; padding: 1%;}
+#filter-date{   width: 33%; margin: 0;}
+#pf{   width: 31%; text-align: center;}
+#t{ width: 11%; text-align: center;}
+#filter-date input {    width: 40%; margin: 0; padding: 2% 1%;}
 
-#filter-search{ width: 29%;}
-#filter-search span{    width: 20%; text-align: right;}
-#filter-search input{    width: 61%; margin: 0; padding: 1.5%;}
+#filter-search{ width: 30%; margin: 0;}
+#filter-search span{    width: 17%; text-align: right;}
+#filter-search input{    width: 65%; margin: 0; padding:  2% 1%}
 #filter-search button{
-    width: 13%; 
+    width: 14%; 
     color: var(--secondary);
     background-color: var(--tertiary);
     padding: 1%;
     border-radius: 5px;
 }
+
+#filter-search button:hover{
+    cursor: pointer;
+}
+
 
 .products{
     width: 95%;
