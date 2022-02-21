@@ -39,6 +39,63 @@
                 </div>
             </div>
 
+            <div class="filter-options">
+                <div class="filters-wrapper">
+                    <div class="area-filters" id="filter-area">
+                        <div class="filter-wrapper" >
+                            <span>Display Products from </span>
+                            <input list="filter-states" name="filter-state" id="filter-state" placeholder="Select State" onchange="setCityList(this.value);">
+                            <datalist id="filter-states">
+                                <option value="AndhraPradesh"> Andhra Pradesh</option>
+                                <option value="ArunachalPradesh"></option>
+                                <option value="Assam"></option>
+                                <option value="Bihar"></option>
+                                <option value="Chhattisgarh"></option>
+                                <option value="Goa"></option>
+                                <option value="Gujarat"></option>
+                                <option value="Haryana"></option>
+                                <option value="HimachalPradesh"></option>
+                                <option value="Jharkhand"></option>
+                                <option value="Karnatak"></option>
+                                <option value="Kerla"></option>
+                                <option value="MadhyaPradesh"></option>
+                                <option value="Maharashtra"></option>
+                                <option value="Manipur"></option>
+                                <option value="Meghalaya"></option>
+                                <option value="Mizoram"></option>
+                                <option value="Nagaland"></option>
+                                <option value="Odisha"></option>
+                                <option value="Punjab"></option>
+                                <option value="Rajasthan"></option>
+                                <option value="Sikkim"></option>
+                                <option value="Tamil Nadu"></option>
+                                <option value="Telangana"></option>
+                                <option value="Tripura"></option>
+                                <option value="UttarPradesh"></option>
+                                <option value="Uttarakhand"></option>
+                                <option value="WestBengal"></option>
+                            </datalist>
+                            <input list="filter-cities" name="filter-cities" id="filter-cities" placeholder="Select City">
+                            <datalist id="filter-city">
+                            </datalist>
+                        </div>    
+                    </div>
+                    <div class="filter-wrapper" id="filter-date">
+                        <span id="pf">Posted from</span>
+                            <input type="date">
+                        <span id="t">to</span>
+                            <input type="date">
+                    </div>
+                    <div class="filter-wrapper" id="filter-search">
+                        <span>Search :</span>
+                        <input type="text">
+                        <button type="submit">-></button>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
             <div class="products">
                 <div class="product">
                     <div class="details-wrapper">

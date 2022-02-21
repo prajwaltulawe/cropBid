@@ -1,3 +1,66 @@
+.filter-options{
+    width: 95%;
+    margin: 2% auto;
+}
+
+.filters-wrapper{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin: 3% 0 0 0;
+}
+
+.filters-wrapper span{
+    font-family: var(--roboto);
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.filters-wrapper input{
+    letter-spacing: 0;
+}
+
+.area-filters{
+    display: inherit;
+}
+
+.filter-wrapper{
+    display: inherit;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--roboto);
+    font-size: 1rem;
+    margin: auto;
+}
+
+.filter-wrapper input, :placeholder-shown{
+    font-size: 1rem;
+    color: var(--tertiary);
+    border: 1px solid var(--tertiary);
+    border-radius: 5px;
+    margin: 1%;
+    padding: 1%;
+}
+
+#filter-area {  width: 37%;}
+#filter-state, #filter-cities{  width: 32%; padding: 1%;}
+
+#filter-date{   width: 34%;}
+#pf{   width: 23%; text-align: center;}
+#t{ width: 7%; text-align: center;}
+#filter-date input {    width: 36%; margin: 0; padding: 1%;}
+
+#filter-search{ width: 29%;}
+#filter-search span{    width: 20%; text-align: right;}
+#filter-search input{    width: 61%; margin: 0; padding: 1.5%;}
+#filter-search button{
+    width: 13%; 
+    color: var(--secondary);
+    background-color: var(--tertiary);
+    padding: 1%;
+    border-radius: 5px;
+}
+
 .products{
     width: 95%;
     height: auto;
