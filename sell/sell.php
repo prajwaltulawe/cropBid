@@ -3,6 +3,11 @@
     $showError = false;
     if($_SERVER["REQUEST_METHOD"] == "POST"){
 
+        include '../partials/php/_dbconnect.php';    
+        $userDetailsQuery = "SELECT * FROM `users` WHERE `user_id` = " . $_SESSION['userid'] . "; ";
+        $userDetails = mysqli_query($connectionquery, $userDetailsQuery);
+        $userDetail = mysqli_fetch_assoc($userDetails);
+
         $productName = $_POST['pname'];
         $productQty = $_POST['qty']; 
         $initialPrice = $_POST['basePrice']; 
@@ -10,6 +15,8 @@
         $endDate = $_POST['endDate']; 
         $productImage = $_FILES['file'];
         $sellerId = $_SESSION['userid'];
+        $sellerState = $userDetail['address_state'];
+        $sellerCity = $userDetail['address_city'];
         
         $productImageName = $productImage['name'];
         $profileImageTempName = $productImage['tmp_name'];
@@ -35,15 +42,14 @@
             else {
                 $showError = "Image already  exists..! Try renaming current image.";
             }
-
-            include '../partials/php/_dbconnect.php';    
+            
             $insertProductSqlQuery = " INSERT INTO `products` 
-            (`product_name`, `product_qty`, `initial_price`, `product_description`, `end_date`, `product_image`, `seller_id`) VALUES
-            ('$productName', '$productQty', '$initialPrice', '$productDesc', '$endDate', '$productImgLocation', '$sellerId');";
+            (`product_name`, `product_qty`, `initial_price`, `product_description`, `end_date`, `product_image`, `seller_id`, `seller_state`, `seller_city`) VALUES
+            ('$productName', '$productQty', '$initialPrice', '$productDesc', '$endDate', '$productImgLocation', '$sellerId','$sellerState', '$sellerCity');";
             
             $result = mysqli_query($connectionquery, $insertProductSqlQuery);
             if ($result){
-                header("location: orders.php");
+                // header("location: orders.php");
             }
             else{
                 $showError = "Opps..! Some error occurred. Please try again.";
@@ -52,11 +58,6 @@
         
     }
     if (isset($_SESSION['username']) && isset($_SESSION['userid']) && $_SESSION['loggedin'] == true) {
-        
-        include '../partials/php/_dbconnect.php';
-        $userDetailsQuery = "SELECT * FROM `users` WHERE `user_id` = " . $_SESSION['userid'] . "; ";
-        $userDetails = mysqli_query($connectionquery, $userDetailsQuery);
-        $userDetail = mysqli_fetch_assoc($userDetails);
 
         echo "
         <!DOCTYPE html>
