@@ -36,10 +36,21 @@
                 $showError = "Image already  exists..! Try renaming current image.";
             }
 
-            include '../partials/php/_dbconnect.php';    
+            include '../partials/php/_dbconnect.php';
+            $sellerDetailsQuery = "SELECT `address_state`, `address_city` FROM `users` WHERE `user_id` = $sellerId; ";
+            var_dump($sellerDetailsQuery);
+            $sellerDetails = mysqli_query($connectionquery, $sellerDetailsQuery);
+            var_dump($sellerDetails);
+            $sellerDetail = mysqli_fetch_assoc($sellerDetails);
+            var_dump($sellerDetail);
+            $sellerState = $sellerDetail['address_state'];
+            $sellerCity = $sellerDetail['address_city']; 
+            
             $insertProductSqlQuery = " INSERT INTO `products` 
-            (`product_name`, `product_qty`, `initial_price`, `product_description`, `end_date`, `product_image`, `seller_id`) VALUES
-            ('$productName', '$productQty', '$initialPrice', '$productDesc', '$endDate', '$productImgLocation', '$sellerId');";
+            (`product_name`, `product_qty`, `initial_price`, `product_description`, `posted_on`, `end_date`, `product_image`, `seller_id`, `seller_state`, `seller_city`) VALUES
+            ('$productName', '$productQty', '$initialPrice', '$productDesc','". date("Y-m-d") ."', '$endDate', '$productImgLocation', '$sellerId', '$sellerState', '$sellerCity');";
+
+            var_dump($insertProductSqlQuery);
             
             $result = mysqli_query($connectionquery, $insertProductSqlQuery);
             if ($result){
@@ -139,7 +150,7 @@
                                     <th> <span>Description :</span> </th>
                                     <td> 
                                         <div class='desc'>
-                                            <textarea name='description' id='description' cols='10' rows='2' required></textarea>
+                                            <textarea name='description' id='description' cols='10' rows='2' minlength='45' required></textarea>
                                         </div>
                                     </td>
                                 </tr>

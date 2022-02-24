@@ -78,8 +78,8 @@
 }
 
 .product{
-    width: 100%;
-    height: max-content;
+    width: 255px;
+    max-height: 425px;
     border-radius: 1rem;
     box-shadow: rgba(0, 0, 0, 0.07) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
     margin: 2% 0;
