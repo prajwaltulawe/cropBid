@@ -24,7 +24,7 @@
                     $_SESSION['loggedin'] = true ;
                     $_SESSION['username'] = $resultRow['first_name'];
                     $_SESSION['userid'] = $resultRow['user_id'];
-                    header("location: sell/sell.php");
+                    header("location: buy/buy.php");
                 }
                 else {
                     $error = "Incorrect password for " . $resultRow['first_name'] ;

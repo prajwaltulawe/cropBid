@@ -56,30 +56,31 @@ if (isset($_SESSION['username']) && isset($_SESSION['userid']) && $_SESSION['log
                 </div>";
 
                 include '../partials/php/_dbconnect.php';
-                $productsDetailsQuery = "SELECT * FROM `products` WHERE `seller_id` = " . $_SESSION['userid'] . "; ";
-                $productDetails = mysqli_query($connectionquery, $productsDetailsQuery);
+                $bidingDetailsQuery = "SELECT * FROM `orders` WHERE `buyer_id` = " . $_SESSION['userid'] . "; ";
+                $bidingDetails = mysqli_query($connectionquery, $bidingDetailsQuery);
 
-                if ($productDetails) {
+                if ($bidingDetails) {
                 echo "
                 <div class='profile sell'>
                     <div class='table'>
                         <table id='table_id' class=''>
                             <thead>
                                 <tr>
-                                    <th>    <span> ID  </span> </th>
+                                    <th>    <span>  ORDER ID  </span> </th>
                                     <th>    <span>  NAME </span> </th>
                                     <th>    <span>  Qty. </span> </th>
                                     <th>    <span>  BASE PRICE </span> </th>
-                                    <th class='desc-width'><span>DESCRIPTION </span> </th>
+                                    <th>    <span>  HIGEST BID </span> </th>
+                                    <th>    <span>  YOUR BID </span> </th>
                                     <th>    <span>  STATUS </span> </th>
                                 </tr>
                             </thead>
                             <tbody>";
 
-                            while ($productDetail = mysqli_fetch_assoc($productDetails)) {
+                            while ($bidingRecord = mysqli_fetch_assoc($bidingDetails)) {
                             echo "
                             <tr>
-                                <td> <form id='productDetail". $productDetail['product_id'] ."' action='productDetails.php' method='POST'> <input form='productDetail". $productDetail['product_id'] ."' type='hidden' name='productDetail' value='". $productDetail['product_id'] ."' >". $productDetail['product_id'] ."</form></td>
+                                <td> <form id='productDetail". $bidingRecord['product_id'] ."' action='productDetails.php' method='POST'> <input form='productDetail". $productDetail['product_id'] ."' type='hidden' name='productDetail' value='". $productDetail['product_id'] ."' >". $productDetail['product_id'] ."</form></td>
                                 <td>". $productDetail['product_name'] ."</td>
                                 <td>". $productDetail['product_qty'] ."</td>
                                 <td>". $productDetail['initial_price'] ."</td>

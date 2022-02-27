@@ -62,11 +62,14 @@
     letter-spacing: 1px;
     color: var(--secondary);
     background-color: var(--tertiary);
-    padding: 2%;
+    padding: 1.5%;
+    cursor: pointer;
 }
 
+.address-width{
+    width: 50%;
+}
 
-
-.biding-details{
-    margin: 0% 0 0 0;
+#address{
+    text-align: center;
 }

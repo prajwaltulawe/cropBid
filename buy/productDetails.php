@@ -6,13 +6,47 @@ if (isset($_SESSION['username']) && isset($_SESSION['userid']) && $_SESSION['log
     
     if ($_SERVER["REQUEST_METHOD"] == "GET" || $_SERVER["REQUEST_METHOD"] == "POST") {
 
+        $productId = $_GET['productId'];
         include '../partials/php/_dbconnect.php';
 
         if (isset($_POST['amount'])) {
 
-        }
+            $existingBidQuery = "SELECT `product_id`,`order_id` FROM `orders` WHERE `buyer_id` = " . $_SESSION['userid'] . "; ";
+            $bidExists = mysqli_query($connectionquery,$existingBidQuery);
+            if (mysqli_num_rows($bidExists) > 0) {
+                $existingBid = mysqli_fetch_assoc($bidExists);
+                $updateBidQuery = "UPDATE `orders` SET `biding_amount` = '".$_POST['amount']."' WHERE `orders`.`order_id` = ".$existingBid['order_id'].";";
+                $updateBid = mysqli_query($connectionquery,$updateBidQuery);
+            } else {
+                $buyerDetailsQuery = "SELECT * FROM `users` WHERE `user_id` = " . $_SESSION['userid'] . "; ";
+                $buyerDetails = mysqli_query($connectionquery, $buyerDetailsQuery);
+    
+                if ($buyerDetails) {
+                    $buyerDetail = mysqli_fetch_assoc($buyerDetails);
+    
+                    $buyerId = $buyerDetail['user_id'];
+                    $buyerImage = $buyerDetail['user_profileImg'];
+                    $buyerName = $buyerDetail['first_name']." ".$buyerDetail['last_name'];
+                    $buyerMobileNo = $buyerDetail['mobile_no'];
+                    $buyerEmail = $buyerDetail['email_id'];
+                    $buyerAddress = $buyerDetail['address_street'];
+                    $buyerCity = $buyerDetail['address_city'];
+                    $buyerState = $buyerDetail['address_state'];             
+                    $biding_amount = $_POST['amount'];
 
-        $productId = $_GET['productId'];
+                    $productEndDateQuery = "SELECT `end_date` FROM `products` WHERE `product_id` = $productId ;";
+                    $productEndDate = mysqli_query($connectionquery, $productEndDateQuery);
+                    $productEndDateResult = mysqli_fetch_assoc($productEndDate);
+                    $endDate = $productEndDateResult['end_date'];
+
+                    $insertBidQuery = "INSERT INTO `orders`(`product_id`,`buyer_id`, `buyer_image`, `buyer_name`, `buyer_mobileNo`, `buyer_email`, `buyer_address`, `buyer_city`, `buyer_state`, `biding_amount`, `end_date`) 
+                    VALUES ($productId,$buyerId,'$buyerImage','$buyerName','$buyerMobileNo','$buyerEmail','$buyerAddress','$buyerCity','$buyerState','$biding_amount', '$endDate')";
+                    $insertBid = mysqli_query($connectionquery,$insertBidQuery);
+                
+                }
+            }
+
+        }
 
         echo "
         <!DOCTYPE html>
@@ -105,7 +139,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['userid']) && $_SESSION['log
                                             <tr>
                                                 <th> PLACE BID :</th>
                                                 <td colspan='3'>
-                                                    <input type='text' name='amount'> 
+                                                    <input type='number' name='amount' maxlength='8'> 
                                                     <span>RS/-</span> 
                                                     <button type='submit'>SUBMIT</button>
                                                 </td>
@@ -120,25 +154,32 @@ if (isset($_SESSION['username']) && isset($_SESSION['userid']) && $_SESSION['log
                                     <table id='table_id' class=''>
                                         <thead>
                                             <tr>
-                                                <th>    <span>  USER  </span> </th>
                                                 <th>    <span>  NAME </span> </th>
-                                                <th>    <span>  PHONE NO. </span> </th>
-                                                <th>    <span>  EMAIL </span> </th>
-                                                <th class='desc-width'><span>ADDRESS</span> </th>
+                                                <th class='address-width'><span>ADDRESS</span> </th>
+                                                <th>    <span>  CITY </span> </th>
+                                                <th>    <span>  STATE </span> </th>
                                                 <th>    <span>  BIDING AMOUNT </span> </th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                    <tbody>";
+
+                                    $bidingRecordsQuery = "SELECT `buyer_name`,`buyer_address`,`buyer_city`,`buyer_state`,`biding_amount` FROM `orders` WHERE `product_id` = $productId ORDER BY `biding_amount` DESC; ";
+                                    $bidingRecords = mysqli_query($connectionquery, $bidingRecordsQuery);
+
+                                    while ($bidRecord = mysqli_fetch_assoc($bidingRecords)){
+
+                                        echo "
                                         <tr>
-                                            <td><img src='' alt=''></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td> <p></p></td>             
-                                            <td></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                            <td>".$bidRecord['buyer_name']."</td>
+                                            <td> <p id='address'>".$bidRecord['buyer_address']."</p></td>             
+                                            <td>".$bidRecord['buyer_city']."</td>
+                                            <td>".$bidRecord['buyer_state']."</td>
+                                            <td>".$bidRecord['biding_amount']."</td>
+                                        </tr>";
+                                    }
+                                    echo "
+                                    </tbody>
+                                </table>
                             </div>
                         </div>";
                     }
