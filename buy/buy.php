@@ -9,8 +9,10 @@ if (isset($_SESSION['username']) && isset($_SESSION['userid']) && $_SESSION['log
     $userDetailsQuery = "SELECT `address_state`, `address_city` FROM `users` WHERE `user_id` = " . $_SESSION['userid'] . "; ";
     $userDetails = mysqli_query($connectionquery, $userDetailsQuery);
     $userDetail = mysqli_fetch_assoc($userDetails);
-    $buyerState = $userDetail['address_state'];
-    $buyerCity = $userDetail['address_city'];
+    $filterState = $userDetail['address_state'];
+    $filterCity = $userDetail['address_city'];
+    $fromDate = date('Y-m-d',strtotime('-1 month'));
+    $toDate = date("Y-m-d");
 
     echo "
     <!DOCTYPE html>
@@ -66,21 +68,39 @@ if (isset($_SESSION['username']) && isset($_SESSION['userid']) && $_SESSION['log
                     </div>
                 </div>";
 
+                $displayProductsQuery = "SELECT * FROM `products` WHERE `end_date` > CURRENT_DATE 
+                AND `posted_on` BETWEEN '$fromDate' AND '$toDate' 
+                AND `seller_id` != " . $_SESSION['userid'] . " 
+                AND `seller_state` = '$filterState' 
+                AND `seller_city` = '$filterCity'; ";
+                
+                $validRangeOfProducts = mysqli_query($connectionquery, $displayProductsQuery);
+
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-                    $fromState = $_POST["filter-state"];
-                    $fromCity = $_POST["filter-cities"];
+                    $filterState = $_POST["filter-state"];
+                    $filterCity = $_POST["filter-cities"];
                     $fromDate = $_POST["fromDate"];
                     $toDate = $_POST["toDate"];
                     $search = $_POST["search"];
 
-                    $displayProductsQuery = "SELECT * FROM `products` WHERE `posted_on` BETWEEN '$fromDate' AND '$toDate' AND `seller_id` != " . $_SESSION['userid'] . " AND `seller_state` = '$fromState' AND `seller_city` = '$fromCity' AND MATCH (`product_name`,`product_description`) against ('$search'); ";
+                    $displayProductsQuery = "SELECT * FROM `products` 
+                    WHERE `posted_on` BETWEEN '$fromDate' AND '$toDate' 
+                    AND `seller_id` != " . $_SESSION['userid'] . " 
+                    AND `seller_state` = '$filterState' 
+                    AND `seller_city` = '$filterCity';";
+
+                    if ($search != "" ) {
+                        $displayProductsQuery = "SELECT * FROM `products` 
+                        WHERE `posted_on` BETWEEN '$fromDate' AND '$toDate' 
+                        AND `seller_id` != " . $_SESSION['userid'] . " 
+                        AND `seller_state` = '$filterState' 
+                        AND `seller_city` = '$filterCity' 
+                        AND MATCH (`product_name`,`product_description`) against ('$search');";
+                    }
+
                     $validRangeOfProducts = mysqli_query($connectionquery, $displayProductsQuery);
                 
-                }
-                else {       
-                    $displayProductsQuery = "SELECT * FROM `products` WHERE `end_date` > CURRENT_DATE AND `seller_id` != " . $_SESSION['userid'] . " AND `seller_state` = '$buyerState' AND `seller_city` = '$buyerCity'; ";
-                    $validRangeOfProducts = mysqli_query($connectionquery, $displayProductsQuery);
                 }
 
                 if ($validRangeOfProducts) {
@@ -92,7 +112,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['userid']) && $_SESSION['log
                             <div class='area-filters' id='filter-area'>
                                 <div class='filter-wrapper' >
                                     <span>Display Products from </span>
-                                    <input list='filter-states' name='filter-state' id='filter-state' value='$buyerState' placeholder='Select State' >
+                                    <input list='filter-states' name='filter-state' id='filter-state' value='$filterState' placeholder='Select State' >
                                     <datalist id='filter-states'>
                                         <option value='AndhraPradesh'> Andhra Pradesh</option>
                                         <option value='ArunachalPradesh'>Arunachal Pradesh</option>
@@ -123,16 +143,16 @@ if (isset($_SESSION['username']) && isset($_SESSION['userid']) && $_SESSION['log
                                         <option value='Uttarakhand'>Uttarakhand</option>
                                         <option value='WestBengal'>West Bengal</option>
                                     </datalist>
-                                    <input list='filter-city' name='filter-cities' id='filter-cities' value='$buyerCity' placeholder='Select City'>
+                                    <input list='filter-city' name='filter-cities' id='filter-cities' value='$filterCity' placeholder='Select City'>
                                     <datalist id='filter-city'>
                                     </datalist>
                                 </div>    
                             </div>
                             <div class='filter-wrapper' id='filter-date'>
                                 <span id='pf'>Posted from</span>
-                                    <input type='date' name='fromDate'>
+                                    <input type='date' name='fromDate' value='$fromDate'>
                                 <span id='t'>to</span>
-                                    <input type='date' name='toDate' value='".date("Y-m-d")."' max=''>
+                                    <input type='date' name='toDate' value='$toDate' max=''>
                             </div>
                             <div class='filter-wrapper' id='filter-search'>
                                 <span>Search :</span>
@@ -175,7 +195,10 @@ if (isset($_SESSION['username']) && isset($_SESSION['userid']) && $_SESSION['log
                                 </div>
                             </div>
                             <div class='button'>
+                            <form action='productDetails.php' method='GET'>
+                                <input type='text' name='productId' value='". $product['product_id'] ."' hidden>
                                 <button type='submit'>VIEW DETAILS</button>
+                            </form>
                             </div>
                         </div>";
                     }

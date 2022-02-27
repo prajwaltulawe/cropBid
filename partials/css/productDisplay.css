@@ -87,7 +87,7 @@
 }
 
 .product:hover{
-    scale: 1.07;
+    transform: scale(1.07); 
 }
 
 .products .details-wrapper{
@@ -144,6 +144,8 @@
     font-weight: 300;
     padding: 0 0 5% 0;
 }
+
+.product form{ width: 100%;}
 
 .product .details-wrapper .location span{
     font-size: 1.1rem;

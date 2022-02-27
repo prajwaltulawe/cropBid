@@ -18,7 +18,6 @@ if (isset($_SESSION['username']) && isset($_SESSION['userid']) && $_SESSION['log
             <link rel='stylesheet' href='https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css'>
             <link rel='stylesheet' href='../partials/css/sellOrders.css' />	
             <script src='../partials/js/script.js'></script>
-            <script defer src='../partials/js/dataTable.js'></script>
             <title>Document</title>
         </head>
         <body>
@@ -116,6 +115,11 @@ if (isset($_SESSION['username']) && isset($_SESSION['userid']) && $_SESSION['log
         </body> 
     <script src='https://code.jquery.com/jquery-3.4.1.slim.min.js' integrity='sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n' crossorigin='anonymous'></script>
     <script type='text/javascript' charset='utf8' src='https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js'></script>
+    <script>
+        $(document).ready( function () {
+            $('#table_id').DataTable();
+        } );
+    </script>
     </html>";
 }
 else{
