@@ -68,7 +68,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['userid']) && $_SESSION['log
                     </div>
                 </div>";
 
-                $displayProductsQuery = "SELECT * FROM `products` WHERE `end_date` > CURRENT_DATE 
+                $displayProductsQuery = "SELECT * FROM `products` 
+                WHERE `end_date` >= CURRENT_DATE 
                 AND `posted_on` BETWEEN '$fromDate' AND '$toDate' 
                 AND `seller_id` != " . $_SESSION['userid'] . " 
                 AND `seller_state` = '$filterState' 
@@ -85,14 +86,16 @@ if (isset($_SESSION['username']) && isset($_SESSION['userid']) && $_SESSION['log
                     $search = $_POST["search"];
 
                     $displayProductsQuery = "SELECT * FROM `products` 
-                    WHERE `posted_on` BETWEEN '$fromDate' AND '$toDate' 
+                    WHERE `end_date` >= CURRENT_DATE 
+                    AND `posted_on` BETWEEN '$fromDate' AND '$toDate' 
                     AND `seller_id` != " . $_SESSION['userid'] . " 
                     AND `seller_state` = '$filterState' 
                     AND `seller_city` = '$filterCity';";
 
                     if ($search != "" ) {
                         $displayProductsQuery = "SELECT * FROM `products` 
-                        WHERE `posted_on` BETWEEN '$fromDate' AND '$toDate' 
+                        WHERE `end_date` >= CURRENT_DATE 
+                        AND `posted_on` BETWEEN '$fromDate' AND '$toDate' 
                         AND `seller_id` != " . $_SESSION['userid'] . " 
                         AND `seller_state` = '$filterState' 
                         AND `seller_city` = '$filterCity' 

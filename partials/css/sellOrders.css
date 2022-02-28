@@ -47,6 +47,11 @@
     font-weight : 500;
 }
 
+.align-center{
+    width: 100%;
+    text-align: center;
+}
+
 .desc-width{
     min-width: 40%;
     max-width: 40%;

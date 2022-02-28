@@ -38,7 +38,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['userid']) && $_SESSION['log
                         <span>  C R O P B I D</span>
                     </div>
                     <div class='menuitems'>
-                        <div class='menuitem'>
+                        <div class='menuitem active-parent'>
                             <a href='sell.php'> SELL</a>
                         </div>
                         <div class='menuitem'>

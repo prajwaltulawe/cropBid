@@ -70,6 +70,13 @@ body{
     cursor: default;
 }
 
+.active-parent a{
+    background-color: var(--supportive);
+    color: var(--secondary);
+    padding: 5% 15%;
+    border-radius: 1em;
+}
+
 .alert{
     display: flex;
     align-items: center;

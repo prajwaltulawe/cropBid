@@ -38,9 +38,9 @@ if (isset($_SESSION['username']) && isset($_SESSION['userid']) && $_SESSION['log
                     </div>
                     <div class='menuitems'>
                         <div class='menuitem'>
-                            <a href='sell.php'> SELL</a>
+                            <a href='../sell/sell.php'> SELL</a>
                         </div>
-                        <div class='menuitem'>
+                        <div class='menuitem active-parent'>
                             <a href='../buy/buy.php'> BUY</a>
                         </div>
                         <div class='menuitem active'>
@@ -70,8 +70,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['userid']) && $_SESSION['log
                                     <th>    <span>  NAME </span> </th>
                                     <th>    <span>  Qty. </span> </th>
                                     <th>    <span>  BASE PRICE </span> </th>
-                                    <th>    <span>  HIGEST BID </span> </th>
                                     <th>    <span>  YOUR BID </span> </th>
+                                    <th>    <span>  END DATE </span> </th>
                                     <th>    <span>  STATUS </span> </th>
                                 </tr>
                             </thead>
@@ -80,23 +80,21 @@ if (isset($_SESSION['username']) && isset($_SESSION['userid']) && $_SESSION['log
                             while ($bidingRecord = mysqli_fetch_assoc($bidingDetails)) {
                             echo "
                             <tr>
-                                <td> <form id='productDetail". $bidingRecord['product_id'] ."' action='productDetails.php' method='POST'> <input form='productDetail". $productDetail['product_id'] ."' type='hidden' name='productDetail' value='". $productDetail['product_id'] ."' >". $productDetail['product_id'] ."</form></td>
-                                <td>". $productDetail['product_name'] ."</td>
-                                <td>". $productDetail['product_qty'] ."</td>
-                                <td>". $productDetail['initial_price'] ."</td>
-                                <td> <p>";
-                                
-                                if (strlen( $productDetail['product_description']) > 130 ) {
-                                    echo substr($productDetail['product_description'], 0, 130). "... </p></td>";  
-                                } else {
-                                    echo $productDetail['product_description'] ."</p></td>";  
-                                }
-                                echo "                                    
+                                <td> <form id='order". $bidingRecord['product_id'] ."' action='productDetails.php' method='GET'> 
+                                        <input type='hidden' form='order". $bidingRecord['product_id'] ."' name='productId' value='". $bidingRecord['product_id'] ."' >
+                                        <span class='align-center'>". $bidingRecord['product_id'] ."</span>
+                                    </form>
+                                </td>
+                                <td>". $bidingRecord['product_name'] ."</td>
+                                <td>". $bidingRecord['product_qty'] ."</td>
+                                <td>". $bidingRecord['base_amount'] ."</td>
+                                <td>". $bidingRecord['biding_amount'] ."</td>                                
+                                <td>". $bidingRecord['end_date'] ."</td>                                
                                 <td>    <button class='status";
-                                if ( $productDetail['end_date'] > date("Y-m-d") ) {
-                                    echo " act' form='productDetail". $productDetail['product_id'] ."' type='submit'> ACTIVE</button></td>";
+                                if ( $bidingRecord['end_date'] >= date("Y-m-d") ) {
+                                    echo " act' form='order". $bidingRecord['product_id'] ."' type='submit'> ACTIVE</button></td>";
                                 } else {
-                                    echo " expired' form='productDetail". $productDetail['product_id'] ."' type='submit'> EXPIRED</button></td>";
+                                    echo " expired' form='order". $bidingRecord['product_id'] ."' type='submit'> EXPIRED</button></td>";
                                 }
                                 echo " 
                                 </tr>";

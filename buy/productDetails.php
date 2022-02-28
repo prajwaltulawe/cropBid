@@ -11,7 +11,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['userid']) && $_SESSION['log
 
         if (isset($_POST['amount'])) {
 
-            $existingBidQuery = "SELECT `product_id`,`order_id` FROM `orders` WHERE `buyer_id` = " . $_SESSION['userid'] . "; ";
+            $existingBidQuery = "SELECT `product_id`,`order_id` FROM `orders` WHERE `buyer_id` = " . $_SESSION['userid'] . " AND `product_id` = $productId; ";
             $bidExists = mysqli_query($connectionquery,$existingBidQuery);
             if (mysqli_num_rows($bidExists) > 0) {
                 $existingBid = mysqli_fetch_assoc($bidExists);
@@ -20,7 +20,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['userid']) && $_SESSION['log
             } else {
                 $buyerDetailsQuery = "SELECT * FROM `users` WHERE `user_id` = " . $_SESSION['userid'] . "; ";
                 $buyerDetails = mysqli_query($connectionquery, $buyerDetailsQuery);
-    
+
                 if ($buyerDetails) {
                     $buyerDetail = mysqli_fetch_assoc($buyerDetails);
     
@@ -34,13 +34,16 @@ if (isset($_SESSION['username']) && isset($_SESSION['userid']) && $_SESSION['log
                     $buyerState = $buyerDetail['address_state'];             
                     $biding_amount = $_POST['amount'];
 
-                    $productEndDateQuery = "SELECT `end_date` FROM `products` WHERE `product_id` = $productId ;";
+                    $productEndDateQuery = "SELECT `product_name`,`product_qty`,`initial_price`,`end_date` FROM `products` WHERE `product_id` = $productId ;";
                     $productEndDate = mysqli_query($connectionquery, $productEndDateQuery);
                     $productEndDateResult = mysqli_fetch_assoc($productEndDate);
+                    $productName = $productEndDateResult['product_name'];
+                    $productQty = $productEndDateResult['product_qty'];
                     $endDate = $productEndDateResult['end_date'];
+                    $baseAmount = $productEndDateResult['initial_price'];
 
-                    $insertBidQuery = "INSERT INTO `orders`(`product_id`,`buyer_id`, `buyer_image`, `buyer_name`, `buyer_mobileNo`, `buyer_email`, `buyer_address`, `buyer_city`, `buyer_state`, `biding_amount`, `end_date`) 
-                    VALUES ($productId,$buyerId,'$buyerImage','$buyerName','$buyerMobileNo','$buyerEmail','$buyerAddress','$buyerCity','$buyerState','$biding_amount', '$endDate')";
+                    $insertBidQuery = "INSERT INTO `orders`(`product_id`,`product_name`,`product_qty`,`buyer_id`, `buyer_image`, `buyer_name`, `buyer_mobileNo`, `buyer_email`, `buyer_address`, `buyer_city`, `buyer_state`,`base_amount`, `biding_amount`, `end_date`) 
+                    VALUES ($productId,'$productName','$productQty',$buyerId,'$buyerImage','$buyerName','$buyerMobileNo','$buyerEmail','$buyerAddress','$buyerCity','$buyerState','$baseAmount','$biding_amount', '$endDate')";
                     $insertBid = mysqli_query($connectionquery,$insertBidQuery);
                 
                 }
@@ -132,20 +135,25 @@ if (isset($_SESSION['username']) && isset($_SESSION['userid']) && $_SESSION['log
                                             <th> Description : </th>
                                             <td colspan='3'><p>". $productDetailsResult['product_description'] ."</p></td>
                                         </tr>
-                                    </table>
-                                    <hr>
-                                    <form action='' method='POST'>
-                                        <table>
-                                            <tr>
-                                                <th> PLACE BID :</th>
-                                                <td colspan='3'>
-                                                    <input type='number' name='amount' maxlength='8'> 
-                                                    <span>RS/-</span> 
-                                                    <button type='submit'>SUBMIT</button>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </form>
+                                    </table>";
+                                    if ($productDetailsResult['end_date'] >= date("Y-m-d")) {
+                                        echo"
+                                        <hr>
+                                        <form action='' method='POST'>
+                                            <table>
+                                                <tr>
+                                                    <th> PLACE BID :</th>
+                                                    <td colspan='3'>
+                                                        <input type='number' name='amount' maxlength='8'> 
+                                                        <span>RS/-</span> 
+                                                        <button type='submit'>SUBMIT</button>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </form>    
+                                        ";
+                                    }
+                                echo "    
                                 </div>
                             </div>
                             <hr>
