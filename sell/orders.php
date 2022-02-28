@@ -72,6 +72,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['userid']) && $_SESSION['log
                                     <th>    <span>  Qty. </span> </th>
                                     <th>    <span>  BASE PRICE </span> </th>
                                     <th class='desc-width'><span>DESCRIPTION </span> </th>
+                                    <th>    <span>  POSTED ON </span> </th>
                                     <th>    <span>  STATUS </span> </th>
                                 </tr>
                             </thead>
@@ -80,7 +81,12 @@ if (isset($_SESSION['username']) && isset($_SESSION['userid']) && $_SESSION['log
                             while ($productDetail = mysqli_fetch_assoc($productDetails)) {
                             echo "
                             <tr>
-                                <td> <form id='productDetail". $productDetail['product_id'] ."' action='productDetails.php' method='POST'> <input form='productDetail". $productDetail['product_id'] ."' type='hidden' name='productDetail' value='". $productDetail['product_id'] ."' >". $productDetail['product_id'] ."</form></td>
+                                <td> 
+                                    <form id='productDetail". $productDetail['product_id'] ."' action='productDetails.php' method='POST'> 
+                                        <input form='productDetail". $productDetail['product_id'] ."' type='hidden' name='productDetail' value='". $productDetail['product_id'] ."' >
+                                        <span class='align-center'> ". $productDetail['product_id'] ."</span>
+                                    </form>
+                                </td>
                                 <td>". $productDetail['product_name'] ."</td>
                                 <td>". $productDetail['product_qty'] ."</td>
                                 <td>". $productDetail['initial_price'] ."</td>
@@ -92,6 +98,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['userid']) && $_SESSION['log
                                     echo $productDetail['product_description'] ."</p></td>";  
                                 }
                                 echo "                                    
+                                <td>". $productDetail['posted_on'] ."</td>
                                 <td>    <button class='status";
                                 if ( $productDetail['end_date'] > date("Y-m-d") ) {
                                     echo " act' form='productDetail". $productDetail['product_id'] ."' type='submit'> ACTIVE</button></td>";

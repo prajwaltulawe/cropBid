@@ -104,16 +104,39 @@ if (isset($_SESSION['username']) && isset($_SESSION['userid']) && $_SESSION['log
                                                 <th>    <span>  PHONE NO. </span> </th>
                                                 <th>    <span>  EMAIL </span> </th>
                                                 <th class='desc-width'><span>ADDRESS</span> </th>
+                                                <th>    <span>  CITY </span> </th>
+                                                <th>    <span>  STATE   </span> </th>
                                                 <th>    <span>  BIDING AMOUNT </span> </th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody>";
+
+                                        $bidingRecordsQuery = "SELECT * FROM `orders` WHERE `product_id` = $productId ORDER BY `biding_amount` DESC; ";
+                                        $bidingRecords = mysqli_query($connectionquery, $bidingRecordsQuery);
+    
+                                        while ($bidRecord = mysqli_fetch_assoc($bidingRecords)){
+    
+                                            echo "
+                                            <tr>
+                                                <td> <img id='buyerImage' src='".$bidRecord['buyer_image']."' alt=''> </td>
+                                                <td>".$bidRecord['buyer_name']."</td>
+                                                <td>".$bidRecord['buyer_mobileNo']."</td>
+                                                <td>".$bidRecord['buyer_email']."</td>
+                                                <td> <p id='address'>".$bidRecord['buyer_address']."</p></td>             
+                                                <td>".$bidRecord['buyer_city']."</td>
+                                                <td>".$bidRecord['buyer_state']."</td>
+                                                <td>".$bidRecord['biding_amount']."</td>
+                                            </tr>";
+                                        }
+                                        echo "
                                         <tr>
                                             <td><img src='' alt=''></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
                                             <td> <p></p></td>             
+                                            <td></td>
+                                            <td></td>
                                             <td></td>
                                             </tr>
                                         </tbody>
