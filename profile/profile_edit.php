@@ -4,16 +4,16 @@
     if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         $profileImage = $_FILES['file'];
-        $firstName = $_POST['fname']; 
-        $lastName = $_POST['lname']; 
-        $mobileNumber = $_POST['mobileNo']; 
+        $firstName = htmlspecialchars($_POST['fname']); 
+        $lastName = htmlspecialchars($_POST['lname']); 
+        $mobileNumber = htmlspecialchars($_POST['mobileNo']); 
         $email = $_POST['email']; 
-        $addressStreet = $_POST['street'];
-        $addressCity = $_POST['city']; 
-        $addressState = $_POST['state']; 
-        $addressZip = $_POST['zip']; 
-        $passwd = $_POST['newPassword'];
-        $current_passwd = $_POST['currentPassword'];
+        $addressStreet = htmlspecialchars($_POST['street']);
+        $addressCity = htmlspecialchars($_POST['city']); 
+        $addressState = htmlspecialchars($_POST['state']); 
+        $addressZip = htmlspecialchars($_POST['zip']); 
+        $passwd = htmlspecialchars($_POST['newPassword']);
+        $current_passwd = htmlspecialchars($_POST['currentPassword']);
         
         include '../partials/php/_dbconnect.php';
         $currentUserQuery = "SELECT * FROM `users` WHERE `user_id` = " . $_SESSION['userid'] . "; ";
@@ -151,7 +151,9 @@
             <link rel='stylesheet' href='../partials/css/color.css' />
             <link rel='stylesheet' href='../partials/css/style.css' />
             <link rel='stylesheet' href='../partials/css/profileEdit.css' />
+            <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
             <script src='../partials/js/script.js'></script>
+            <script defer src='../partials/js/areaFilter.js'></script>
             <title>Document</title>
         </head>
         <body>
@@ -226,8 +228,40 @@
                                     <th></th>
                                     <td>
                                         <div class='add'>
-                                            <input type='text' name='city' id='city' placeholder='City' value='". $userDetail['address_city'] ."' />
-                                            <input type='text' name='state' id='state' placeholder='State' value='". $userDetail['address_state'] ."' />
+                                            <input list='filter-states' name='state' id='filter-state' value='". $userDetail['address_state'] ."' placeholder='State' >
+                                                <datalist id='filter-states'>
+                                                    <option value='AndhraPradesh'> Andhra Pradesh</option>
+                                                    <option value='ArunachalPradesh'>Arunachal Pradesh</option>
+                                                    <option value='Assam'>Assam</option>
+                                                    <option value='Bihar'>Bihar</option>
+                                                    <option value='Chhattisgarh'>Chhattisgarh</option>
+                                                    <option value='Goa'>Goa</option>
+                                                    <option value='Gujarat'>Gujarat</option>
+                                                    <option value='Haryana'>Haryana</option>
+                                                    <option value='HimachalPradesh'>Himachal Pradesh</option>
+                                                    <option value='Jharkhand'>Jharkhand</option>
+                                                    <option value='Karnatak'>Karnatak</option>
+                                                    <option value='Kerla'>Kerla</option>
+                                                    <option value='MadhyaPradesh'>Madhya Pradesh</option>
+                                                    <option value='Maharashtra'>Maharashtra</option>
+                                                    <option value='Manipur'>Manipur</option>
+                                                    <option value='Meghalaya'>Meghalaya</option>
+                                                    <option value='Mizoram'>Mizoram</option>
+                                                    <option value='Nagaland'>Nagaland</option>
+                                                    <option value='Odisha'>Odisha</option>
+                                                    <option value='Punjab'>Punjab</option>
+                                                    <option value='Rajasthan'>Rajasthan</option>
+                                                    <option value='Sikkim'>Sikkim</option>
+                                                    <option value='Tamil Nadu'>Tamil Nadu</option>
+                                                    <option value='Telangana'>Telangana</option>
+                                                    <option value='Tripura'>Tripura</option>
+                                                    <option value='UttarPradesh'>Uttar Pradesh</option>
+                                                    <option value='Uttarakhand'>Uttarakhand</option>
+                                                    <option value='WestBengal'>West Bengal</option>
+                                                </datalist>
+                                            <input list='filter-city' name='city' id='filter-cities' value='". $userDetail['address_city'] ."' placeholder='City'>
+                                                <datalist id='filter-city'>
+                                                </datalist>
                                             <input type='text' name='zip' id='zip' placeholder='Zip' value='". $userDetail['address_zip'] ."' />
                                         </div>
                                     </td>

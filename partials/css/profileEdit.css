@@ -118,8 +118,8 @@
     margin:  1% 0;
 }
 
-#city{ width: 25%;}
-#state{ width: 45%;}
+#filter-cities{ width: 25%;}
+#filter-state{ width: 45%;}
 #zip{ width: 20%;}
 #currentPassword{ width: 60%;}
 

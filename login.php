@@ -3,14 +3,14 @@
     if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         if ($_POST['loginType'] == "email_id") { 
-            $logInId = $_POST['email']; 
+            $logInId = htmlspecialchars($_POST['email']); 
             $logInMethod = "email_id";
         }
         elseif ($_POST['loginType'] == "mobile_no") { 
-            $logInId = $_POST['mobileNo']; 
+            $logInId = htmlspecialchars($_POST['mobileNo']); 
             $logInMethod = "mobile_no";
         }
-        $logInPassword = $_POST['password']; 
+        $logInPassword = htmlspecialchars($_POST['password']); 
 
         include 'partials/php/_dbconnect.php';
         $isLogInIdValidQuery = "SELECT * FROM `users` WHERE $logInMethod = '$logInId';";
@@ -19,16 +19,16 @@
 
         if ( $isValidId == 1 ){
             $resultRow = mysqli_fetch_assoc($logInIdValidResult);
-                if ( password_verify($logInPassword, $resultRow['password'] ) ) {
-                    session_start();
-                    $_SESSION['loggedin'] = true ;
-                    $_SESSION['username'] = $resultRow['first_name'];
-                    $_SESSION['userid'] = $resultRow['user_id'];
-                    header("location: profile/profile_edit.php");
-                }
-                else {
-                    $error = "Incorrect password for " . $resultRow['first_name'] ;
-                }
+            if ( password_verify($logInPassword, $resultRow['password'] ) ) {
+                session_start();
+                $_SESSION['loggedin'] = true ;
+                $_SESSION['username'] = $resultRow['first_name'];
+                $_SESSION['userid'] = $resultRow['user_id'];
+                header("location: profile/profile_edit.php");
+            }
+            else {
+                $error = "Incorrect password for " . $resultRow['first_name'] ;
+            }
         }
         else {
             $error = "Invalid Log in Id..!";
@@ -50,10 +50,8 @@
       <title>Document</title>
   </head>
 
-  <body>
-      
-        <div class="cointainer homepage">
-            
+  <body>     
+        <div class="cointainer homepage">            
             <?php
             if($error){
             echo '<div class="alert failed" id="alert">
@@ -61,8 +59,7 @@
                 <button onclick="disableAlert()"> <b> x </b> </button> 
             </div>';
             }
-            ?>
-            
+            ?>            
             <div class="navbar">
                 <div class="menuitems">
                     <div class="menuitem">
@@ -79,14 +76,11 @@
                     </div>
                 </div>
             </div>
-
             <div class="logo login">
                 <img src="partials/images/logo/logo.png" alt="">
                 <span>  C R O P B I D</span>
             </div>
-
-            <div class="form login">
-                     
+            <div class="form login">                   
                 <form action="" method="post">
                     <select name="loginType" id="loginType" onchange="inputType()">
                         <option value="email_id" selected>Email Id</option>
@@ -95,16 +89,12 @@
                     <div class="login-type" id="inputType"> 
                         <input type="email" name="email" id="email"  required/>
                     </div>
-
                     <div class="password">
                         <span>Password</span>
                         <input type="password" name="password" id="password" required/>
                     </div>
-
-                    <button type="submit">Log In </button> 
-                    
+                    <button type="submit">Log In </button>       
                 </form> 
-
             </div>
         </div>
   </body>

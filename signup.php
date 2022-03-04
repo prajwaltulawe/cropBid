@@ -2,11 +2,11 @@
     $showAlert = false;
     $showError = false;
     if($_SERVER["REQUEST_METHOD"] == "POST"){
-        $fname = $_POST["fname"];
-        $lname = $_POST["lname"];
-        $mobno = $_POST["mobileNo"];
+        $fname = htmlspecialchars($_POST["fname"]);
+        $lname = htmlspecialchars($_POST["lname"]);
+        $mobno = htmlspecialchars($_POST["mobileNo"]);
         $email = $_POST["email"];
-        $passwd = $_POST["password"];
+        $passwd = htmlspecialchars($_POST["password"]);
         
         $mailExistsQuery = "SELECT * FROM `users` WHERE mobile_no = '$mobno';";
         $phoneNoExistsQuery = "SELECT * FROM `users` WHERE email_id = '$email';";

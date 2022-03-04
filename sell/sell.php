@@ -3,10 +3,10 @@
     $showError = false;
     if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-        $productName = $_POST['pname'];
-        $productQty = $_POST['qty']; 
-        $initialPrice = $_POST['basePrice']; 
-        $productDesc = $_POST['description']; 
+        $productName = htmlspecialchars($_POST['pname']);
+        $productQty = htmlspecialchars($_POST['qty']); 
+        $initialPrice = htmlspecialchars($_POST['basePrice']); 
+        $productDesc = htmlspecialchars($_POST['description']); 
         $endDate = $_POST['endDate']; 
         $productImage = $_FILES['file'];
         $sellerId = $_SESSION['userid'];
@@ -38,19 +38,14 @@
 
             include '../partials/php/_dbconnect.php';
             $sellerDetailsQuery = "SELECT `address_state`, `address_city` FROM `users` WHERE `user_id` = $sellerId; ";
-            var_dump($sellerDetailsQuery);
             $sellerDetails = mysqli_query($connectionquery, $sellerDetailsQuery);
-            var_dump($sellerDetails);
             $sellerDetail = mysqli_fetch_assoc($sellerDetails);
-            var_dump($sellerDetail);
             $sellerState = $sellerDetail['address_state'];
             $sellerCity = $sellerDetail['address_city']; 
             
             $insertProductSqlQuery = " INSERT INTO `products` 
             (`product_name`, `product_qty`, `initial_price`, `product_description`, `posted_on`, `end_date`, `product_image`, `seller_id`, `seller_state`, `seller_city`) VALUES
             ('$productName', '$productQty', '$initialPrice', '$productDesc','". date("Y-m-d") ."', '$endDate', '$productImgLocation', '$sellerId', '$sellerState', '$sellerCity');";
-
-            var_dump($insertProductSqlQuery);
             
             $result = mysqli_query($connectionquery, $insertProductSqlQuery);
             if ($result){
