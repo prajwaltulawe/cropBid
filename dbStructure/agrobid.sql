@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 03, 2022 at 04:10 PM
+-- Generation Time: Mar 05, 2022 at 05:32 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -36,7 +36,7 @@ CREATE TABLE `orders` (
   `buyer_id` int(10) NOT NULL,
   `buyer_image` varchar(255) NOT NULL,
   `buyer_name` varchar(50) NOT NULL,
-  `buyer_mobileNo` int(16) NOT NULL,
+  `buyer_mobileNo` bigint(11) NOT NULL,
   `buyer_email` varchar(25) NOT NULL,
   `buyer_address` varchar(50) NOT NULL,
   `buyer_city` varchar(20) NOT NULL,
@@ -78,9 +78,9 @@ CREATE TABLE `users` (
   `last_name` varchar(20) NOT NULL,
   `mobile_no` bigint(11) NOT NULL,
   `email_id` varchar(30) NOT NULL,
-  `address_street` varchar(50) NOT NULL,
-  `address_city` varchar(50) NOT NULL,
-  `address_state` varchar(20) NOT NULL,
+  `address_street` varchar(50) DEFAULT NULL,
+  `address_city` varchar(50) DEFAULT NULL,
+  `address_state` varchar(20) DEFAULT NULL,
   `address_zip` int(16) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `user_profileImg` varchar(255) NOT NULL
@@ -133,7 +133,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
