@@ -27,7 +27,7 @@
                 header("location: profile/profile_edit.php");
             }
             else {
-                $error = "Incorrect password for " . $resultRow['first_name'] ;
+                $error = "Incorrect Login Id or Password..!" ;
             }
         }
         else {
