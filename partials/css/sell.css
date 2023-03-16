@@ -1,0 +1,13 @@
+.sell form{
+    width: 100%;
+}
+
+.post{
+    margin: 2% auto;
+}
+
+#post{
+    width: 50%;
+    margin: auto;
+    background-color: var(--tertiary);
+}

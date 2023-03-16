@@ -1,0 +1,94 @@
+.sell{
+    width: 100%;
+}
+
+.dataTables_length{
+    width: 15%;
+}
+
+.dataTables_length label{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.dataTables_length label select{
+    width: 40%;
+}
+
+.dataTables_filter{
+    width: 25%;
+    margin: 0 0 2% 0;
+}
+
+.dataTables_filter label{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.dataTables_filter label input{
+    width: 80%;
+    margin: 0 2%;
+}
+
+.table{
+    margin: 3% auto;
+    width: 95%;
+    font-family: var(--roboto);
+    text-align: center;
+}
+
+.sorting span{
+    font-weight : 500;
+}
+
+.align-center{
+    width: 100%;
+    text-align: center;
+}
+
+.desc-width{
+    min-width: 35%;
+    max-width: 40%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#buyerImage{
+    width: 100px;
+}
+
+td > p{
+    text-align: justify;
+}
+
+#address{
+    text-align: center;
+}
+
+.status{
+    height: auto;
+    width: 80%;
+    padding: 5% 5%;
+    font-size: 1rem;
+    margin: 5% 0 7% 0;
+}
+
+.status:hover{
+    cursor: pointer;
+}
+
+.act{
+    background-color: var(--tertiary);
+    color: var(--secondary);
+}
+
+.expired{
+    background-color: var(--supportive);
+    color: var(--secondary);
+}

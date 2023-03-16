@@ -1,0 +1,60 @@
+.home{
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+    margin: 7% 0 0 19%;
+}
+
+.home span{
+    font-size: 5rem;
+}
+
+.mob-block{
+    display: none;
+}
+
+.by{
+    display: block;
+    width: 420px;
+    margin: 0 0 0 13%;
+}
+
+.names{
+    margin: 0 0 0 8%;
+}
+
+.name-cointainer{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: 10% 0 5% 0;
+    letter-spacing: 2px;
+}
+
+.name-cointainer span{
+    font-size: 26px;
+    width: 250px;
+    padding-top: 0;
+}
+
+@media only screen and (max-width: 1279px) {
+    .homepage{
+        display: none;
+    }
+    .mob-block{
+        display: flex;
+        flex-direction: column;
+        color: black;
+        justify-content: center;
+        align-items: center;
+    }
+    h1{
+        width: 80%;
+        text-align: center;
+        font-size: 5vh;
+        letter-spacing: 2px;
+        font-family: var(--roboto);
+        margin: auto;
+        padding-top: 50%;
+    }
+  }
